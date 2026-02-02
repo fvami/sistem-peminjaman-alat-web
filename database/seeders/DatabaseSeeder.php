@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Database\Seeders\ToolSeeder;
+use Database\Seeders\CategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +21,14 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            CategorySeeder::class,
+            ToolSeeder::class,
+        ]);
+
+        Role::insert([
+            ['name' => 'Operator', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Administrator', 'created_at' => now(), 'updated_at' => now()],
+        ]);
     }
 }
