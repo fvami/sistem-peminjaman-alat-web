@@ -250,7 +250,9 @@
                     <p class="lead text-muted mb-5">Platform terintegrasi untuk mendata, memantau, dan mengelola
                         penggunaan alat kerja secara kolektif di mana pun lokasi operasional Anda.</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
-                        <a href="{{ route('login') }}" class="btn btn-main py-3">Mulai Sekarang</a>
+                        @guest
+                            <a href="{{ route('login') }}" class="btn btn-main py-3">Mulai Sekarang</a>
+                        @endguest
                         <a href="#features"
                             class="btn btn-outline-dark py-3 border-2 rounded-3 fw-semibold px-4">Pelajari Fitur</a>
                     </div>
@@ -408,10 +410,12 @@
                 <h2 class="fw-bold mb-4">Mulai Transformasi Digital Aset Anda.</h2>
                 <p class="mb-5 opacity-75">Gunakan sistem Sewalat untuk memastikan produktivitas tim tetap berjalan
                     maksimal tanpa kendala ketersediaan alat.</p>
-                <div class="d-flex justify-content-center gap-3">
-                    <a href="{{ route('login') }}" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold">Login
-                        User</a>
-                </div>
+                @guest
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{{ route('login') }}" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold">Login
+                            User</a>
+                    </div>
+                @endguest
             </div>
         </div>
     </section>

@@ -66,9 +66,10 @@ Route::middleware(['auth', 'operator'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard.view'); // Ini akan error karena data tidak dikirim
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard.view');
     Route::prefix('/loans-detail-view')->group(function () {
         Route::get('/', [LoanDetailController::class, 'index'])->name('loans.detail');
         Route::post('/{loan}/update-status', [LoanDetailController::class, 'updateStatus'])->name('loans.update-global-status');
+        Route::delete('/{loan}', [LoanDetailController::class, 'destroy'])->name('loans.destroy');
     });
 });

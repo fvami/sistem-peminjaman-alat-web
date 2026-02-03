@@ -62,10 +62,16 @@
                                             <label class="btn btn-outline-success border-0 fw-bold px-3"
                                                 for="r{{ $loan->id }}">RETURNED</label>
                                         </div>
-
-                                        <button type="submit" class="btn btn-dark btn-sm px-4 rounded-pill shadow-sm">
+                                        <button type="submit" class="btn btn-dark btn-sm px-4 rounded-pill shadow-sm me-2">
                                             Update
                                         </button>
+                                        @can('administrator')
+                                            <button type="button"
+                                                class="btn btn-outline-danger btn-sm px-2 rounded-circle delete-loan-btn"
+                                                data-id="{{ $loan->id }}" data-name="{{ $loan->borrower_name }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        @endcan
                                     </form>
                                 </div>
                             </div>
@@ -75,7 +81,6 @@
                     <div id="collapse{{ $loan->id }}" class="accordion-collapse collapse">
                         <div class="accordion-body bg-light-subtle p-0 border-top">
                             <div class="p-3 p-md-4">
-                                {{-- TAMPILAN DESKTOP: Tabel tetap seperti biasa --}}
                                 <div class="table-responsive d-none d-md-block">
                                     <table
                                         class="table table-hover align-middle mb-0 shadow-sm bg-white rounded overflow-hidden">
@@ -110,7 +115,6 @@
                                     </table>
                                 </div>
 
-                                {{-- TAMPILAN MOBILE: List Card (Hanya muncul di layar HP) --}}
                                 <div class="d-md-none">
                                     <h6 class="fw-bold mb-3 small text-muted uppercase tracking-wider">Daftar Alat:</h6>
                                     @foreach ($loan->details as $item)

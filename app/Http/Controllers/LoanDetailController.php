@@ -20,26 +20,38 @@ class LoanDetailController extends Controller
             'status' => 'required|in:borrowed,returned',
         ]);
 
-        if ($loan->status === $request->status) {
-            return back()->with('info', 'Status sudah sesuai.');
-        }
-
         try {
             DB::transaction(function () use ($request, $loan) {
                 foreach ($loan->details as $detail) {
-                    if ($request->status === 'returned') {
+                    if ($request->status === 'returned' && $loan->status !== 'returned') {
                         $detail->tool->increment('stock', $detail->qty);
-                    } else {
+                    } elseif ($request->status === 'borrowed' && $loan->status !== 'borrowed') {
                         $detail->tool->decrement('stock', $detail->qty);
                     }
                 }
-
                 $loan->update(['status' => $request->status]);
             });
-
-            return back()->with('success', 'Status transaksi #' . $loan->id . ' berhasil diperbarui.');
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Status transaksi berhasil diperbarui.'
+            ]);
         } catch (\Exception $e) {
-            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
         }
+    }
+
+    public function destroy(Loan $loan)
+    {
+        $loan->details()->delete();
+        $loan->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil dihapus.'
+        ]);
     }
 }

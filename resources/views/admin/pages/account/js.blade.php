@@ -1,4 +1,3 @@
--- Active: 1765372619065@@127.0.0.1@3306@sewalat
 <script>
     $.ajaxSetup({
         headers: {
@@ -19,7 +18,9 @@
     function initSelect2() {
         $('#role_id').select2({
             dropdownParent: $('#userModal'),
-            width: '100%'
+            width: '100%',
+            placeholder: 'Pilih Role',
+            allowClear: true
         });
     }
 
@@ -31,59 +32,64 @@
     function loadUsers() {
         $.get("/user")
             .done(res => {
-
-                if ($.fn.DataTable.isDataTable('#myTable')) $('#myTable').DataTable().destroy();
+                if ($.fn.DataTable.isDataTable('#myTable')) {
+                    $('#myTable').DataTable().destroy();
+                }
 
                 let html = '';
-                const users = res.data;
+                const users = res.data ?? [];
 
                 users.forEach((v, i) => {
-                    html += `<tr>
-<td data-label="No">${i + 1}</td>
-<td data-label="Nama"><strong>${v.name}</strong></td>
-<td data-label="Email">${v.email}</td>
-<td data-label="Role"><span class="badge bg-light text-dark border">${v.role || v.role_id}</span></td>
-<td data-label="Aksi">
-    <div class="d-flex gap-1 justify-content-center">
-        <button class="btn btn-outline-dark btn-sm" onclick="editUser(${v.id})">
-            <i class="bi bi-pencil"></i> Edit
-        </button>
-        <button class="btn btn-dark btn-sm" onclick="deleteUser(${v.id})">
-            <i class="bi bi-trash"></i> Delete
-        </button>
-    </div>
-</td>
-</tr>`;
+                    const displayRole = v.role?.name ?? v.role_id ?? 'No Role';
+
+                    html += `
+                    <tr>
+                        <td data-label="No">${i + 1}</td>
+                        <td data-label="Nama"><strong>${v.name ?? '-'}</strong></td>
+                        <td data-label="Email">${v.email ?? '-'}</td>
+                        <td data-label="Role">
+                            <span class="badge bg-light text-dark border">${displayRole}</span>
+                        </td>
+                        <td data-label="Aksi">
+                            <div class="d-flex gap-1 justify-content-center">
+                                <button class="btn btn-outline-dark btn-sm" onclick="editUser(${v.id})">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
+                                <button class="btn btn-dark btn-sm" onclick="deleteUser(${v.id})">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>`;
                 });
 
                 $('#tbody').html(html);
 
                 $('#myTable').DataTable({
-                    responsive: false, 
+                    responsive: true,
                     language: {
                         search: "_INPUT_",
                         searchPlaceholder: "Search users..."
                     }
                 });
-
             })
             .fail(() => showAlert('Error', 'Failed to load user data', 'error'));
     }
 
-
     function saveUser() {
         const id = $('#user_id').val();
         const formData = $('#userForm').serialize();
-        let url = `/user-update/${id}`;
+        const url = id ? `/user-update/${id}` : `/user-store`;
+        const method = id ? 'PUT' : 'POST';
 
         $.ajax({
                 url: url,
-                type: 'PUT',
+                type: method,
                 data: formData
             })
             .done(() => {
                 $('#userModal').modal('hide');
-                showAlert('Success', 'User updated successfully');
+                showAlert('Success', `User ${id ? 'updated' : 'created'} successfully`);
                 loadUsers();
             })
             .fail(err => {
@@ -110,7 +116,6 @@
             .fail(() => showAlert('Error', 'Failed to fetch user details', 'error'));
     }
 
-
     function deleteUser(id) {
         Swal.fire({
             title: 'Are you sure?',
@@ -122,7 +127,7 @@
             confirmButtonText: 'Yes, delete it!'
         }).then(res => {
             if (res.isConfirmed) {
-                $.get(`/user-delete/${id}`) // Sesuai route GET Anda
+                $.get(`/user-delete/${id}`)
                     .done(() => {
                         showAlert('Deleted', 'User has been removed');
                         loadUsers();
@@ -135,10 +140,8 @@
     function resetForm() {
         $('#userForm')[0].reset();
         $('#user_id').val('');
-        $('#email').val('');
         $('#role_id').val(null).trigger('change');
     }
-
 
     function showAlert(title, text = '', icon = 'success') {
         Swal.fire({

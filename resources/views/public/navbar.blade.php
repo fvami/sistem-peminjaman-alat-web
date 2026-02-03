@@ -20,7 +20,7 @@
                             <span class="fw-semibold text-dark small me-2">{{ Auth::user()->name }}</span>
                             <span class="badge bg-primary-subtle text-primary fw-bold"
                                 style="font-size: 0.6rem; letter-spacing: 0.5px; border-radius: 4px; padding: 3px 6px;">
-                                {{ Auth::user()->role->name }}
+                                {{ Auth::user()->role->name ?? 'User' }}
                             </span>
                         </div>
 
@@ -31,15 +31,17 @@
                                 <i class="bi bi-chevron-down small"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-3 rounded-4">
-                                <li>
-                                    <a class="dropdown-item rounded-3 py-2 fw-semibold small"
-                                        href="{{ route('dashboard.view') }}">
-                                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
+                                @if (auth()->user()->role_id === 1 || auth()->user()->role_id === 2)
+                                    <li>
+                                        <a class="dropdown-item rounded-3 py-2 fw-semibold small"
+                                            href="{{ route('dashboard.view') }}">
+                                            <i class="bi bi-grid-1x2 me-2"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                @endif
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
