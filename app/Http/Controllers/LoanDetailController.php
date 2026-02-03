@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Loan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\LoanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LoanDetailController extends Controller
 {
@@ -12,6 +14,15 @@ class LoanDetailController extends Controller
     {
         $loans = Loan::with(['details.tool.category'])->latest()->get();
         return view('admin.pages.loan_detail.index', compact('loans'));
+    }
+
+    public function export(Request $request)
+    {
+        $ids = $request->input('ids') ? explode(',', $request->ids) : null;
+
+        $fileName = 'Laporan_Peminjaman_' . now()->format('d-m-Y_His') . '.xlsx';
+
+        return Excel::download(new LoanExport($ids), $fileName);
     }
 
     public function updateStatus(Request $request, Loan $loan)
@@ -31,7 +42,7 @@ class LoanDetailController extends Controller
                 }
                 $loan->update(['status' => $request->status]);
             });
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Status transaksi berhasil diperbarui.'

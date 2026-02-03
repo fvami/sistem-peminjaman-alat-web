@@ -66,6 +66,7 @@ Route::middleware(['auth', 'operator'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/loans/export-excel', [LoanDetailController::class, 'export'])->name('loans.export-excel');
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard.view');
     Route::prefix('/loans-detail-view')->group(function () {
         Route::get('/', [LoanDetailController::class, 'index'])->name('loans.detail');

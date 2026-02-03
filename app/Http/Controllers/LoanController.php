@@ -20,6 +20,45 @@ class LoanController extends Controller
         return view('admin.pages.loan.index', compact('tools', 'cart'));
     }
 
+    public function exportExcel(Request $request)
+    {
+        $ids = explode(',', $request->ids);
+        $loans = Loan::whereIn('id', $ids)->with('details.tool')->get();
+        $fileName = 'rekap-peminjaman-' . date('Y-m-d') . '.csv';
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Nama Peminjam', 'Telepon', 'Tgl Pinjam', 'Tgl Kembali', 'Alamat', 'Alat');
+
+        $callback = function () use ($loans, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($loans as $loan) {
+                $tools = $loan->details->map(function ($d) {
+                    return $d->tool->name . ' (' . $d->qty . ')';
+                })->implode('; ');
+
+                fputcsv($file, array(
+                    $loan->borrower_name,
+                    $loan->borrower_phone,
+                    $loan->loan_date,
+                    $loan->return_plan,
+                    $loan->borrower_address,
+                    $tools
+                ));
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function cart(Request $request)
     {
         $cart = session('cart', []);

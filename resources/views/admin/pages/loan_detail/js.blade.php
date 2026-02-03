@@ -97,7 +97,7 @@
 
                             card.slideUp(400, function() {
                                 $(this)
-                            .remove();
+                                    .remove();
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Terhapus!',
@@ -110,6 +110,60 @@
                     });
                 }
             });
+        });
+        $('#exportExcel').on('click', function() {
+            let ids = $('.loan-checkbox:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            if (ids.length > 0) {
+                let url = '/loans/export-excel';
+                window.location.href = `${url}?ids=${ids.join(',')}`;
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Pilih Data',
+                    text: 'Silakan pilih minimal satu data untuk di-export ke Excel.'
+                });
+            }
+        });
+
+        function refreshBulkUI() {
+            let selectedCount = $('.loan-checkbox:checked').length;
+            $('.selectedCount').text(selectedCount);
+
+            if (selectedCount > 0) {
+                $('#bulkActions').removeClass('d-none').addClass('d-flex');
+            } else {
+                $('#bulkActions').addClass('d-none').removeClass('d-flex');
+            }
+        }
+
+        $('#filterMonth').on('change', function() {
+            let month = $(this).val();
+            $('.loan-checkbox, #selectAllLoans').prop('checked', false);
+
+            $(".loan-card").each(function() {
+                if (month === "") {
+                    $(this).show();
+                } else {
+                    $(this).data('month') == month ? $(this).show() : $(this).hide();
+                }
+            });
+            refreshBulkUI();
+        });
+
+        $('#selectAllLoans').on('change', function() {
+            let isChecked = $(this).prop('checked');
+            $('.loan-card:visible .loan-checkbox').prop('checked', isChecked);
+            refreshBulkUI();
+        });
+
+        $(document).on('change', '.loan-checkbox', function() {
+            let allVisible = $('.loan-card:visible .loan-checkbox').length;
+            let allChecked = $('.loan-card:visible .loan-checkbox:checked').length;
+            $('#selectAllLoans').prop('checked', allVisible === allChecked && allVisible > 0);
+            refreshBulkUI();
         });
     });
 </script>
