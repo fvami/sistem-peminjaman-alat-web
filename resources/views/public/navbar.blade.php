@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="#">SEWALAT.</a>
+        <a class="navbar-brand" href="#">SIPELAT.</a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <i class="bi bi-grid-fill fs-3"></i>

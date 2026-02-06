@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sewalat - Management Aset Terpadu</title>
+    <title> SIPELAT - Sistem Peminjaman Alat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -323,7 +323,7 @@
 
     <section id="features" class="section-padding reveal">
         <div class="container text-center mb-5">
-            <h2 class="fw-bold">Mengapa Menggunakan Sewalat?</h2>
+            <h2 class="fw-bold">Mengapa Menggunakan SIPELAT?</h2>
             <p class="text-muted">Solusi cerdas untuk efisiensi operasional harian Anda.</p>
         </div>
         <div class="container">
@@ -359,7 +359,7 @@
     <section id="about" class="section-padding bg-white reveal">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Prosedur Penggunaan Sewalat</h2>
+                <h2 class="fw-bold">Prosedur Penggunaan SIPELAT</h2>
                 <p class="text-muted">Ikuti 3 langkah mudah untuk mulai mengelola aset Anda.</p>
             </div>
 
@@ -408,7 +408,7 @@
         <div class="container">
             <div class="cta-container text-center">
                 <h2 class="fw-bold mb-4">Mulai Transformasi Digital Aset Anda.</h2>
-                <p class="mb-5 opacity-75">Gunakan sistem Sewalat untuk memastikan produktivitas tim tetap berjalan
+                <p class="mb-5 opacity-75">Gunakan sistem SIPELAT untuk memastikan produktivitas tim tetap berjalan
                     maksimal tanpa kendala ketersediaan alat.</p>
                 @guest
                     <div class="d-flex justify-content-center gap-3">
@@ -422,7 +422,7 @@
 
     <footer class="py-5 bg-white border-top">
         <div class="container text-center">
-            <p class="fw-bold mb-1">SEWALAT.</p>
+            <p class="fw-bold mb-1">SIPELAT.</p>
             <p class="text-muted small">Sistem Manajemen Aset Kolektif & Terpadu. © {{ date('Y') }}</p>
         </div>
     </footer>

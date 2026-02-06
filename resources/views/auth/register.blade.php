@@ -1,6 +1,6 @@
 @extends('auth.layouts')
 
-@section('title', 'Sewalat | Register')
+@section('title', 'SIPELAT | Register')
 
 @section('content')
     <div class="main-container">
@@ -17,7 +17,7 @@
             <div class="register-wrapper">
 
                 <div class="brand-header">
-                    <h1>Sewalat</h1>
+                    <h1>SIPELAT</h1>
                     <p>Create your account.</p>
                 </div>
 

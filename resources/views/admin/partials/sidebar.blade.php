@@ -3,9 +3,9 @@
         <div class="brand-box">
             <i class="bi bi-cart-fill"></i>
             @if (auth()->user()->role_id === 1)
-                <span>Operator Sewalat.</span>
+                <span>Operator SIPELAT.</span>
             @else
-                <span>Admin Sewalat.</span>
+                <span>Admin SIPELAT.</span>
             @endif
         </div>
         <button type="button" class="btn border-0 p-0 d-md-none text-dark" id="close-sidebar" style="line-height: 1;">

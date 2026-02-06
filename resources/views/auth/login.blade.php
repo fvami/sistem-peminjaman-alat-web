@@ -1,6 +1,6 @@
 @extends('auth.layouts')
 
-@section('title', 'Sewalat | Login')
+@section('title', 'SIPELAT | Login')
 
 @section('content')
     <div class="main-container">
@@ -9,7 +9,7 @@
             <div class="login-wrapper">
 
                 <div class="brand-header">
-                    <h1>Sewalat</h1>
+                    <h1>SIPELAT</h1>
                     <p>Sign In to your account.</p>
                 </div>
 
