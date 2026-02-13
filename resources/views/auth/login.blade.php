@@ -28,8 +28,6 @@
                     <div class="form-group">
                         <div class="d-flex justify-content-between align-items-center">
                             <label for="password" class="form-label">Password</label>
-                            {{-- <a href="#"
-                                style="font-size: 0.65rem; text-decoration: none; color: var(--text-gray); margin-bottom: 6px; font-weight: 600; letter-spacing: 0.5px;">FORGOT?</a> --}}
                         </div>
                         <input type="password" name="password" class="form-control" placeholder="" required>
                     </div>
@@ -43,20 +41,8 @@
 
             </div>
         </div>
-
-        {{-- <div class="image-side"
-            style="background-image: url('{{ $setting && $setting->log_img ? asset('storage/' . $setting->log_img) : 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1200' }}'); background-size: cover; background-position: center;">
-            <div class="image-content text-end">
-                <h2>Welcome Back.</h2>
-                <p class="opacity-75">Your professional workspace awaits.</p>
-            </div>
-        </div> --}}
         <div class="image-side"
             style="background-color: rgb(197, 197, 197); background-size: cover; background-position: center;">
-            {{-- <div class="image-content text-end">
-                <h2>Welcome Back.</h2>
-                <p class="opacity-75">Your professional workspace awaits.</p>
-            </div> --}}
         </div>
 
     </div>

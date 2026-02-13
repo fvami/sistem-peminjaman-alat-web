@@ -13,17 +13,16 @@
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold">Nama Lengkap</label>
                                     <input type="text" name="borrower_name" class="form-control bg-light border-0"
-                                        placeholder="Contoh: Leonardo" required>
+                                        required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold">Nomor HP</label>
                                     <input type="text" name="borrower_phone" class="form-control bg-light border-0"
-                                        placeholder="0812..." required>
+                                        required>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label small fw-bold">Alamat</label>
-                                    <textarea name="borrower_address" class="form-control bg-light border-0" rows="2"
-                                        placeholder="Alamat lengkap lokasi penggunaan..."></textarea>
+                                    <textarea name="borrower_address" class="form-control bg-light border-0" rows="2"></textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold">Tanggal Pinjam</label>

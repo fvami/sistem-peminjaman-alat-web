@@ -7,10 +7,6 @@
 
         <div class="image-side"
             style="background-color: rgb(197, 197, 197); background-size: cover; background-position: center;">
-            {{-- <div class="image-content">
-                <h2>The New Standard.</h2>
-                <p class="opacity-75">Professional tools for the next generation.</p>
-            </div> --}}
         </div>
 
         <div class="form-side">

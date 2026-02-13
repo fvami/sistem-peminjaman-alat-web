@@ -57,6 +57,6 @@
 
     </div>
     <div class="sidebar-footer">
-        <small>© 2026 fvM</small>
+        <small>© {{ date('Y') }} SIPELAT</small>
     </div>
 </aside>

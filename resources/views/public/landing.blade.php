@@ -423,7 +423,7 @@
     <footer class="py-5 bg-white border-top">
         <div class="container text-center">
             <p class="fw-bold mb-1">SIPELAT.</p>
-            <p class="text-muted small">Sistem Manajemen Aset Kolektif & Terpadu. © {{ date('Y') }}</p>
+            <p class="text-muted small">Sistem Peminjaman Alat. © {{ date('Y') }}</p>
         </div>
     </footer>
 

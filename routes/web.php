@@ -74,3 +74,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{loan}', [LoanDetailController::class, 'destroy'])->name('loans.destroy');
     });
 });
+
+Route::fallback(function () {
+    return redirect('/404');
+});
+
+Route::get('/404', function () {
+    return view('errors.404');
+});
