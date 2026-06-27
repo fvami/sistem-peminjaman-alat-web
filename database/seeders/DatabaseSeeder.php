@@ -17,30 +17,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+    //     \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        // $this->call([
-        //     CategorySeeder::class,
-        //     ToolSeeder::class,
-        // ]);
-
-
-        Role::insert([
-            ['name' => 'Operator', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Administrator', 'created_at' => now(), 'updated_at' => now()],
+    //     \App\Models\User::factory()->create([
+    //         'name' => 'Test User',
+    //         'email' => 'test@example.com',
+    //     ]);
+        $this->call([
+            CategorySeeder::class,
+            ToolSeeder::class,
         ]);
 
-        User::create([
-            'name' => 'Administrator',
-            'email' => 'administrator@gmail.com',
-            'password' => Hash::make('maniac#0'),
-            'role_id' => 2, 
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+
+        // Role::insert([
+        //     ['name' => 'Operator', 'created_at' => now(), 'updated_at' => now()],
+        //     ['name' => 'Administrator', 'created_at' => now(), 'updated_at' => now()],
+        // ]);
+
+        // User::create([
+        //     'name' => 'Administrator',
+        //     'email' => 'administrator@gmail.com',
+        //     'password' => Hash::make('maniac#0'),
+        //     'role_id' => 2, 
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
     }
 }

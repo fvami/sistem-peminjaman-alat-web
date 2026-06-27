@@ -26,11 +26,11 @@ class LoanController extends Controller
         $loans = Loan::whereIn('id', $ids)->with('details.tool')->get();
         $fileName = 'rekap-peminjaman-' . date('Y-m-d') . '.csv';
         $headers = array(
-            "Content-type"        => "text/csv",
+            "Content-type" => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
-            "Pragma"              => "no-cache",
-            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-            "Expires"             => "0"
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
         );
 
         $columns = array('Nama Peminjam', 'Telepon', 'Tgl Pinjam', 'Tgl Kembali', 'Alamat', 'Alat');
