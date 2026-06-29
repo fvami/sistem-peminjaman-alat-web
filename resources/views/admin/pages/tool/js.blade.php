@@ -82,7 +82,6 @@ ${v.status.charAt(0).toUpperCase()+v.status.slice(1)}
         const formData = new FormData($('#toolForm')[0]);
         let url = id ? `/tool/${id}` : "/tool";
         if (id) formData.append('_method', 'PUT');
-
         $.ajax({
             url,
             type: 'POST',

@@ -45,18 +45,18 @@ Route::middleware(['auth', 'administrator'])->group(function () {
     Route::get('/user-delete/{id}', [AccountController::class, 'delete']);
 
     Route::get('/category-view', [CategoryController::class, 'index'])->name('admin.category');
-    Route::get('/category', [CategoryController::class, 'category'])->name('category.view');
-    Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
-    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
-    Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
-    Route::delete('/category/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+    Route::get('/category', [CategoryController::class, 'category']);
+    Route::get('/category/{category}', [CategoryController::class, 'show']);
+    Route::post('/category', [CategoryController::class, 'store']);
+    Route::put('/category/{category}', [CategoryController::class, 'update']);
+    Route::delete('/category/{category}', [CategoryController::class, 'delete']);
 
     Route::get('/tool-view', [ToolController::class, 'index'])->name('admin.tool');
-    Route::get('/tool', [ToolController::class, 'tool'])->name('tool.view');
-    Route::get('/tool/{id}', [ToolController::class, 'show'])->name('tool.show');
-    Route::post('/tool', [ToolController::class, 'store'])->name('tool.store');
-    Route::put('/tool/{id}', [ToolController::class, 'update'])->name('tool.update');
-    Route::delete('/tool/{id}', [ToolController::class, 'delete'])->name('tool.delete');
+    Route::get('/tool', [ToolController::class, 'tool']);
+    Route::get('/tool/{tool}', [ToolController::class, 'show']);
+    Route::post('/tool', [ToolController::class, 'store']);
+    Route::put('/tool/{tool}', [ToolController::class, 'update']);
+    Route::delete('/tool/{tool}', [ToolController::class, 'delete']);
 });
 
 Route::middleware(['auth', 'operator'])->group(function () {

@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/category',[CategoryController::class,'category']);
-Route::get('/category/{id}',[CategoryController::class,'show']);
+Route::get('/category/{category}',[CategoryController::class,'show']);
 Route::post('/category',[CategoryController::class,'store']);
-Route::put('/category/{id}',[CategoryController::class,'update']);
-Route::delete('/category/{id}',[CategoryController::class,'delete']);
+Route::put('/category/{category}',[CategoryController::class,'update']);
+Route::delete('/category/{category}',[CategoryController::class,'delete']);
 
 Route::get('/tool',[ToolController::class,'tool']);
-Route::get('/tool/{id}',[ToolController::class,'show']);
+Route::get('/tool/{tool}',[ToolController::class,'show']);
 Route::post('/tool',[ToolController::class,'store']);
-Route::put('/tool/{id}',[ToolController::class,'update']);
-Route::delete('/tool/{id}',[ToolController::class,'delete']);
+Route::put('/tool/{tool}',[ToolController::class,'update']);
+Route::delete('/tool/{tool}',[ToolController::class,'delete']);

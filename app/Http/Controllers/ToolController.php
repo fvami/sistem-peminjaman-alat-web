@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreToolRequest;
+use App\Http\Requests\UpdateToolRequest;
 use App\Http\Resources\ToolResource;
 use App\Models\Category;
 use App\Models\Tool;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ToolService;
 
 class ToolController extends Controller
 {
+    public function __construct(
+        protected ToolService $toolService
+    ) {}
+
     public function index()
     {
         $tool = Tool::all();
@@ -19,93 +24,32 @@ class ToolController extends Controller
 
     public function tool()
     {
-        $tools = Tool::with('category')->get();
-
-        $data = $tools->map(function ($tool) {
-            return [
-                'id' => $tool->id,
-                'name' => $tool->name,
-                'description' => $tool->description,
-                'stock' => $tool->stock,
-                'status' => $tool->status,
-                'category' => $tool->category->name ?? '-',
-                'image_url' => $tool->image ? asset('storage/' . $tool->image) : null
-            ];
-        });
-
-        return response()->json(['data' => $data]);
+        return ToolResource::collection($this->toolService->getAll());
     }
 
 
-    public function show($id)
+    public function show(Tool $tool)
     {
-        $data = Tool::findOrFail($id);
-        return new ToolResource($data);
+
+        return new ToolResource($this->toolService->getDetail($tool));
     }
 
-    public function store(Request $req)
+    public function store(StoreToolRequest $req)
     {
-        $data = $req->validate([
-            'name' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'description' => 'nullable|string',
-            'stock' => 'nullable|integer|min:0',
-            'status' => 'nullable|in:available,unavailable,maintenance',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
-        ]);
-
-        if ($req->hasFile('image')) {
-            $data['image'] = $req->file('image')->store('tools', 'public');
-        }
-
-        $tool = Tool::create($data);
-
+        $tool = $this->toolService->store($req->validated());
         return new ToolResource($tool);
     }
 
 
-    public function update(Request $req, $id)
+    public function update(UpdateToolRequest $req, Tool $tool)
     {
-        $tool = Tool::findOrFail($id);
-
-        $data = $req->validate([
-            'name'        => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'description' => 'nullable|string',
-            'stock'       => 'nullable|integer|min:0',
-            'status'      => 'nullable|in:available,unavailable,maintenance',
-            'image'       => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
-        ]);
-
-        if ($req->hasFile('image')) {
-            if ($tool->image) {
-                Storage::disk('public')->delete($tool->image);
-            }
-
-            $data['image'] = $req->file('image')->store('tools', 'public');
-        } elseif ($req->remove_image == 1) {
-            if ($tool->image) {
-                Storage::disk('public')->delete($tool->image);
-            }
-
-            $data['image'] = null;
-        }
-
-        $tool->update($data);
-
+        $tool = $this->toolService->update($tool, $req->validated());
         return new ToolResource($tool);
     }
 
-    public function delete($id)
+    public function delete(Tool $tool)
     {
-        $tool = Tool::findOrFail($id);
-        if ($tool->image) {
-            if (Storage::disk('public')->exists($tool->image)) {
-                Storage::disk('public')->delete($tool->image);
-            }
-        }
-        $tool->delete();
-
+        $this->toolService->delete($tool);
         return response()->json('Success Deleted!');
     }
 }
