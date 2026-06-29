@@ -28,6 +28,7 @@ class UpdateToolRequest extends FormRequest
             'stock'       => 'nullable|integer|min:0',
             'status'      => 'nullable|in:available,unavailable,maintenance',
             'image'       => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'remove_image' => ['nullable', 'boolean'],
         ];
     }
 }

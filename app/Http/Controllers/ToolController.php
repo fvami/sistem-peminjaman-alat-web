@@ -41,7 +41,7 @@ class ToolController extends Controller
     }
 
 
-    public function update(UpdateToolRequest $req, Tool $tool)
+    public function update (Tool $tool, UpdateToolRequest $req)
     {
         $tool = $this->toolService->update($tool, $req->validated());
         return new ToolResource($tool);

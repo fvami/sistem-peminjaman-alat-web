@@ -3,14 +3,15 @@
 namespace App\Services;
 
 use App\Models\Tool;
-use App\Repositories\ToolRepository;
+use App\Repositories\Contracts\ToolRepositoryInterface;
+use App\Services\Contracts\FileStorageInterface;
 use Illuminate\Http\UploadedFile;
 
 class ToolService
 {
     public function __construct(
-        protected ToolRepository $toolRepository,
-        protected FileStorageService $fileStorage
+        protected ToolRepositoryInterface $toolRepository,
+        protected FileStorageInterface $fileStorage
     ) {}
 
     public function getAll()
@@ -36,7 +37,7 @@ class ToolService
     public function update(Tool $tool, array $data): Tool
     {
         $hasNewImage = isset($data['image']) && $data['image'] instanceof UploadedFile;
-        $shouldDeleteImage = $tool->image_remove == 1;
+        $shouldDeleteImage = !empty($data['remove_image']);
 
         if ($hasNewImage) {
             $this->fileStorage->delete($tool->image);
