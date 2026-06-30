@@ -17,6 +17,21 @@ class ToolRepository implements ToolRepositoryInterface
         return $tool;
     }
 
+    public function findById(int $id): ?Tool
+    {
+        return Tool::find($id);
+    }
+
+    public function findForUpdate(int $id): ?Tool
+    {
+        return Tool::lockForUpdate()->find($id);
+    }
+
+    public function decrementStock(Tool $tool, int $qty): void
+    {
+        $tool->decrement('stock', $qty);
+    }
+
     public function create(array $data): Tool
     {
         return Tool::create($data);
